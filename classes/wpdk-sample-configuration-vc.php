@@ -18,8 +18,8 @@ class ControlsConfigurationViewController extends WPDKViewController {
    */
   public function __construct()  {
 
-    // Build the container, with header title
-    parent::__construct( 'controls-view-controller-2', 'Show the main view of plugin with configuration loading and recording' );
+    // Build the container view, with header title
+    parent::__construct( 'controls-view-controller-3', 'This is the main view of plugin, with configuration loading and recording' );
 
     // Create a specialized WPDKView that embeds all WPDK graphic controls and configuration
     $controls_view = new ControlsConfigurationView( 'Graphic Controls View + configuration recording' );
@@ -52,9 +52,10 @@ class ControlsConfigurationView extends WPDKConfigurationView {
    */
   public function __construct() {
 
-    /* Get configuration instance. */
-//    $configuration = ControlsConfiguration::init();
+    /* Get configuration data from model */
+    $configuration = ControlsConfiguration::init();
 
+    // Build the default view structure of this specialized view
     parent::__construct( 'General settings', __( 'General settings'), $configuration );
 
   }
@@ -68,6 +69,10 @@ class ControlsConfigurationView extends WPDKConfigurationView {
    */
   function fields() {
 
+    /* Get configuration data from model */
+    $configuration = ControlsConfiguration::init();
+
+    /* Build WPDK graphic controls related to configuration data */
     $fields = array(
 
       'First area' => array(
@@ -80,7 +85,7 @@ class ControlsConfigurationView extends WPDKConfigurationView {
             'name'  => 'input_text_box_1',
             'label' => 'A text box',
             'title' => 'I am a tooltip for control WPDKUIControlType::TEXT',
-            'value' => ''
+            'value' => $configuration->settings->value_text_box
           ),
         ),
 
@@ -94,7 +99,8 @@ class ControlsConfigurationView extends WPDKConfigurationView {
             'name'  => 'checkbox_second_area',
             'id'  => 'checkbox_second_area',
             'label' => 'Check me',
-            'value' => 'off'
+            'value' => 'is_checked',
+            'checked' => $configuration->settings->value_check_box
           )
         ),
         array(
@@ -108,7 +114,7 @@ class ControlsConfigurationView extends WPDKConfigurationView {
               'two'   => 'Milan',
               'three' => 'Paris'
             ),
-            'value'   => 'two'
+            'value'   => $configuration->settings->value_combo_box
           ),
 
         ),
@@ -122,7 +128,7 @@ class ControlsConfigurationView extends WPDKConfigurationView {
             'name'  => 'swipe-second-area',
             'label' => 'Swipe me',
             'title' => 'Swipe me to display an alert',
-            'value' => ''
+            'value' => $configuration->settings->value_swipe
           )
         )
       )
@@ -137,20 +143,57 @@ class ControlsConfigurationView extends WPDKConfigurationView {
   // -----------------------------------------------------------------------------------------------------------------
 
   /**
-   * Process and set you own post data
+   * Process the 'Update' request
    *
-   * @brief Update configuration
+   * @brief Process the 'Update' request
    *
    * @return bool TRUE to update the configuration and display the standard sucessfully message, or FALSE to avoid
-   * the update configuration and do a custom display.
+   * the update configuration and show a custom display.
    */
   public function updatePostData() {
 
-    /* Check the post data and return TRUE or FALSE. */
-//    WPX__WPXGENESI_SHORT_PLUGIN_NAME_CAPITALIZE__Configuration::init()->settings->general->value_one = esc_attr( $_POST['value_one'] );
-//    WPX__WPXGENESI_SHORT_PLUGIN_NAME_CAPITALIZE__Configuration::init()->settings->general->value_two = esc_attr( $_POST['value_two'] );
+    /* Get configuration data from model */
+    $configuration = ControlsConfiguration::init();
+
+    // Update configuration
+    // NOTE: you can insert here any type of low level check of data incoming from $_POST array
+    $configuration->settings->value_text_box  = $_POST['input_text_box_1'];
+
+    if( isset( $_POST['checkbox_second_area'] )) {
+      $configuration->settings->value_check_box = $_POST['checkbox_second_area'];
+    }
+    else {
+      $configuration->settings->value_check_box = '';
+    }
+
+    $configuration->settings->value_combo_box = $_POST['combo_second_area'];
+
+    $configuration->settings->value_swipe     = $_POST['swipe-second-area'];
 
     return true;
+
+  }
+
+  /**
+   * Process the 'Reset to default' request
+   *
+   * @brief Process the 'Reset to default' request
+   *
+   * @return bool TRUE
+   */
+  public function resetToDefault() {
+
+    /* Get configuration data from model */
+    $configuration = ControlsConfiguration::init();
+
+    /* Reset all data to default */
+    $configuration->settings->resetToDefault();
+
+    /* Save the default configuration */
+    $configuration->update();
+
+    return TRUE;
+
   }
 
 }
@@ -174,12 +217,14 @@ class AboutViewController extends WPDKViewController {
    */
   public function __construct() {
     // Build the container, with default header
-    parent::__construct( 'my-view-controller-2', 'WPDK Sample Plugin #1 - Output of second view controller' );
+    parent::__construct( 'my-view-controller-3', 'WPDK Sample Plugin #3 - Output of second view controller' );
   }
 
   public function display() {
-    // show default header of this view controller
-    $this->viewHead->display();
+
+    // call parent display to build default page structure
+    parent::display();
+
     // show custom content
 ?>
     <h3>View Controller ID: <?php echo $this->id ?></h3>

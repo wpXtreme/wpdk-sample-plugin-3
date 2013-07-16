@@ -1,24 +1,24 @@
 <?php
 /**
- * Sample configuration class. In this class you define your tree configuration.
+ * Sample configuration class. In this class you define the model of your tree configuration.
  *
- * @class              WPX__WPXGENESI_SHORT_PLUGIN_NAME_CAPITALIZE__Configuration
- * @author             __WPXGENESI_PLUGIN_AUTHOR__
- * @copyright          __WPXGENESI_PLUGIN_COPYRIGHT__
- * @date               __WPXGENESI_TIME_NOW__
- * @version            0.1.2
+ * @class              ControlsConfiguration
+ * @author             wpXtreme team
+ * @copyright          2013- wpXtreme
+ * @date               20130716
+ * @version            1.0.0
  */
 
-class WPX__WPXGENESI_SHORT_PLUGIN_NAME_CAPITALIZE__Configuration extends WPDKConfiguration {
+class ControlsConfiguration extends WPDKConfiguration {
 
     /**
-     * The configuration name used on database
+     * The configuration name used on database to store data
      *
      * @brief Configuration name
      *
      * @var string
      */
-    const CONFIGURATION_NAME = 'wpx-__WPXGENESI_SHORT_PLUGIN_NAME_LOWERCASE__-configuration';
+    const CONFIGURATION_NAME = 'wpdk-controls-configuration';
 
     /**
      * Your own configuration property
@@ -27,31 +27,32 @@ class WPX__WPXGENESI_SHORT_PLUGIN_NAME_CAPITALIZE__Configuration extends WPDKCon
      *
      * @var string $version
      */
-    public $version = WPX__WPXGENESI_SHORT_PLUGIN_NAME_UPPERCASE___VERSION;
+    public $version = '1.0.0';
 
     /**
-     * This is the first entry pointer to your own tree configuration
+     * This is the pointer to your own tree configuration
      *
      * @brief Settings
      *
-     * @var WPX__WPXGENESI_SHORT_PLUGIN_NAME_CAPITALIZE__SettingsConfiguration $settings
+     * @var ControlsSettings $settings
      */
     public $settings;
 
     /**
-     * Return an instance of WPX__WPXGENESI_SHORT_PLUGIN_NAME_CAPITALIZE__Configuration class from the database or onfly.
+     * Return an instance of ControlsConfiguration class from the database or onfly.
      *
      * @brief Get the configuration
      *
-     * @return WPX__WPXGENESI_SHORT_PLUGIN_NAME_CAPITALIZE__Configuration
+     * @return ControlsConfiguration
      */
     public static function init() {
+
         $instance = parent::init( self::CONFIGURATION_NAME, __CLASS__ );
 
-        /* Or if the obfly version is different from stored version. */
-        if( version_compare( $instance->version, WPX__WPXGENESI_SHORT_PLUGIN_NAME_UPPERCASE___VERSION ) < 0 ) {
+        /* Or if the onfly version is different from stored version. */
+        if( version_compare( $instance->version, '1.0.0' ) < 0 ) {
             /* For i.e. you would like update the version property. */
-            $instance->version = WPX__WPXGENESI_SHORT_PLUGIN_NAME_UPPERCASE___VERSION;
+            $instance->version = '1.0.0';
             $instance->update();
         }
 
@@ -59,127 +60,59 @@ class WPX__WPXGENESI_SHORT_PLUGIN_NAME_CAPITALIZE__Configuration extends WPDKCon
     }
 
     /**
-     * Create an instance of WPX__WPXGENESI_SHORT_PLUGIN_NAME_CAPITALIZE__Configuration class
+     * Create an instance of ControlsConfiguration class
      *
      * @brief Construct
      *
-     * @return WPX__WPXGENESI_SHORT_PLUGIN_NAME_CAPITALIZE__Configuration
+     * @return ControlsConfiguration
      */
     public function __construct() {
+
         parent::__construct( self::CONFIGURATION_NAME );
 
         /* Init my tree settings. */
-        $this->settings = new WPX__WPXGENESI_SHORT_PLUGIN_NAME_CAPITALIZE__SettingsConfiguration();
+        $this->settings = new ControlsSettings();
+
     }
 
 }
 
 /**
- * @class WPX__WPXGENESI_SHORT_PLUGIN_NAME_CAPITALIZE__SettingsConfiguration
+ * Insert here all properties/configuration for your plugin settings
  *
- * This is a sample of config branch. From main config class you can add a lot of sub class for each section in your
- * configuration tree.
+ * @class ControlsSettings
  *
  */
-class WPX__WPXGENESI_SHORT_PLUGIN_NAME_CAPITALIZE__SettingsConfiguration {
+class ControlsSettings {
+
+    /* Configuration properties: this is the model that the view controller of configuration will handle,
+       in order to load and store properties. Any value is related to a WPDK graphic control shown through ControlsConfigurationView class  */
+    public $value_text_box;
+    public $value_check_box;
+    public $value_combo_box;
+    public $value_swipe;
 
     /**
-     * Pointer to general branch
-     *
-     * @brief General branch
-     *
-     * @var WPX__WPXGENESI_SHORT_PLUGIN_NAME_CAPITALIZE__SettingsGeneralConfiguration $general
-     */
-    public $general;
-
-    /**
-     * Pointer to second items branch
-     *
-     * @brief Second items branch
-     *
-     * @var WPX__WPXGENESI_SHORT_PLUGIN_NAME_CAPITALIZE__SettingsSecondItemConfiguration $second_items
-     */
-    public $second_items;
-
-    /**
-     * Create an instance of WPX__WPXGENESI_SHORT_PLUGIN_NAME_CAPITALIZE__SettingsConfiguration class
+     * Create an instance of ControlsSettings class.
+     * The constructor set the default values
      *
      * @brief Construct
      *
-     * @return WPX__WPXGENESI_SHORT_PLUGIN_NAME_CAPITALIZE__SettingsConfiguration
-     */
-    public function __construct() {
-        $this->general      = new WPX__WPXGENESI_SHORT_PLUGIN_NAME_CAPITALIZE__SettingsGeneralConfiguration;
-        $this->second_items = new WPX__WPXGENESI_SHORT_PLUGIN_NAME_CAPITALIZE__SettingsSecondItemConfiguration;
-    }
-}
-
-/**
- * The branch general. Insert here all properties/configuration for general settings
- *
- * @class WPX__WPXGENESI_SHORT_PLUGIN_NAME_CAPITALIZE__SettingsGeneralConfiguration
- *
- */
-class WPX__WPXGENESI_SHORT_PLUGIN_NAME_CAPITALIZE__SettingsGeneralConfiguration {
-
-    /* Config properties. */
-    public $value_one;
-    public $value_two;
-
-    /**
-     * Create an instance of WPX__WPXGENESI_SHORT_PLUGIN_NAME_CAPITALIZE__SettingsGeneralConfiguration class.
-     * As each branch, the constructor set the default values
-     *
-     * @brief Construct
-     *
-     * @return WPX__WPXGENESI_SHORT_PLUGIN_NAME_CAPITALIZE__SettingsGeneralConfiguration
+     * @return ControlsSettings
      */
     public function __construct() {
         $this->resetToDefault();
     }
 
     /**
-     * Optional. You can implement this method to reset to default value this sub configuration branch
+     * Optional. You can implement this method to reset to default value
      *
-     * @breif Reset to default values
+     * @brief Reset to default values
      */
     public function resetToDefault() {
-        $this->value_one = 'Default value one';
-        $this->value_two = 'Default value two';
-    }
-}
-
-/**
- * Second items branch sample
- *
- * @class WPX__WPXGENESI_SHORT_PLUGIN_NAME_CAPITALIZE__SettingsSecondItemConfiguration
- *
- */
-class WPX__WPXGENESI_SHORT_PLUGIN_NAME_CAPITALIZE__SettingsSecondItemConfiguration {
-
-    /* Config properties. */
-    public $value_one;
-    public $value_two;
-
-    /**
-     * Create an instance of WPX__WPXGENESI_SHORT_PLUGIN_NAME_CAPITALIZE__SettingsSecondItemConfiguration class.
-     * As each branch, the constructor set the default values
-     *
-     * @brief Construct
-     *
-     * @return WPX__WPXGENESI_SHORT_PLUGIN_NAME_CAPITALIZE__SettingsSecondItemConfiguration
-     */
-    public function __construct() {
-        $this->resetToDefault();
-    }
-
-    /**
-     * Optional. You can implement this method to reset to default value this sub configuration branch
-     *
-     * @breif Reset to default values
-     */
-    public function resetToDefault() {
-        $this->value_one = 'Default value one';
-        $this->value_two = 'Default value two';
+        $this->value_text_box   = '';
+        $this->value_check_box  = '';
+        $this->value_combo_box  = '';
+        $this->value_swipe      = '';
     }
 }
