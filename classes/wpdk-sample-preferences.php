@@ -77,7 +77,7 @@ class ControlsPreferencesSettingsBranch extends WPDKPreferencesBranch {
   /*
    * Preferences branch properties: this is the model that the view controller of configuration will handle,
    * in order to load and store properties.
-   * Any value is related to a WPDK graphic control shown through ControlsConfigurationView class
+   * Any value is related to a WPDK graphic control shown through ControlsPreferencesView class
    */
   public $value_text_box;
   public $value_check_box;

@@ -37,7 +37,7 @@ class ControlsPreferencesViewController extends WPDKPreferencesViewController {
   public function __construct()
   {
     // Create the single view for each tab
-    $settings_view = new ControlsConfigurationView();
+    $settings_view = new ControlsPreferencesView();
 
     // Create each single tab
     $tabs = array(
@@ -67,21 +67,21 @@ class ControlsPreferencesViewController extends WPDKPreferencesViewController {
 /**
  * This class is a custom WPDKView that embeds the display of all WPDK available graphic controls, and handling of related configuration
  *
- * @class           ControlsConfigurationView
+ * @class           ControlsPreferencesView
  * @author          wpXtreme team
  * @copyright       Copyright (C) 2013 wpXtreme Inc. All Rights Reserved.
  * @date            2013-07-15
  * @version         1.0.0
  *
  */
-class ControlsConfigurationView extends WPDKPreferencesView {
+class ControlsPreferencesView extends WPDKPreferencesView {
 
   /**
-   * Create an instance of ControlsConfigurationView class
+   * Create an instance of ControlsPreferencesView class
    *
    * @brief Construct
    *
-   * @return ControlsConfigurationView
+   * @return ControlsPreferencesView
    */
   public function __construct()
   {
