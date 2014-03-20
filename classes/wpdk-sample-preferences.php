@@ -72,7 +72,7 @@ class ControlsPreferences extends WPDKPreferences {
 class ControlsPreferencesSettingsBranch extends WPDKPreferencesBranch {
 
   // You can define your comodity constants
-  const MY_VALUE = 'wpdk-sample-5-value';
+  const MY_VALUE = 'wpdk-sample-value';
 
   /*
    * Preferences branch properties: this is the model that the view controller of configuration will handle,

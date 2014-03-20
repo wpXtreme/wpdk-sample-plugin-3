@@ -44,7 +44,7 @@ class ControlsPreferencesViewController extends WPDKPreferencesViewController {
       new WPDKjQueryTab( $settings_view->id, __( 'This is the main view of plugin, with configuration loading and recording' ), $settings_view->html() ),
     );
 
-    parent::__construct( PreferencesModel::init(), __( 'Graphic Controls View + configuration recording' ), $tabs );
+    parent::__construct( ControlsPreferences::init(), __( 'Graphic Controls View + configuration recording' ), $tabs );
 
   }
 
@@ -60,6 +60,7 @@ class ControlsPreferencesViewController extends WPDKPreferencesViewController {
     WPDKUIComponents::init()->enqueue( WPDKUIComponents::CONTROLS, WPDKUIComponents::TOOLTIP );
 
     // Enqueue your own styles and scripts
+    wp_enqueue_script( 'wpdk-sample-preferences', WPDK_SAMPLE_PREFERENCES_ASSETS_JS . 'wpdk-sample-preferences.js', array(), '1.0.0' );
   }
 
 }
@@ -116,7 +117,7 @@ class ControlsPreferencesView extends WPDKPreferencesView {
         array(
           array(
             'type'  => WPDKUIControlType::TEXT,
-            'name'  => 'input_text_box_1',
+            'name'  => ControlsPreferencesSettingsBranch::MY_VALUE,
             'label' => 'A text box',
             'title' => 'I am a tooltip for control WPDKUIControlType::TEXT',
             'value' => $settings->value_text_box
@@ -163,6 +164,11 @@ class ControlsPreferencesView extends WPDKPreferencesView {
             'label' => 'Swipe me',
             'title' => 'Swipe me to display an alert',
             'value' => $settings->value_swipe
+          ),
+          array(
+            'type'    => WPDKUIControlType::BUTTON,
+            'content' => 'Change the state of swipe',
+            'name'    => 'button-swipe'
           )
         )
       )
