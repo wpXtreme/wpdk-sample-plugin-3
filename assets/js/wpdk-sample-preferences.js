@@ -34,7 +34,8 @@ jQuery( function ( $ )
       // Give a focus
       $( '#wpdk-sample-value' ).focus();
 
-      // Before Swipe
+      // Before Swipe - this is an alias of 'change'
+      /*
       $( '#swipe-second-area' ).on( 'swipe', function (e, knob, enable )
       {
         alert( 'on( "swipe" ) - the state should change in = ' + enable );
@@ -42,8 +43,9 @@ jQuery( function ( $ )
         return true;
 
       } );
+      */
 
-      // After swipe
+      // Before swipe
       $( '#swipe-second-area' ).on( 'change', function (e, knob, enable )
       {
         return confirm( 'on( "change" ) = the state should change in = ' + enable + ' - Are you sure?' );
