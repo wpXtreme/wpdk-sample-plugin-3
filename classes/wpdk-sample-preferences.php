@@ -47,7 +47,7 @@ class ControlsPreferences extends WPDKPreferences {
    */
   public static function init()
   {
-    return parent::init( self::PREFERENCES_NAME, __CLASS__, WPXSAMPLE5_VERSION );
+    return parent::init( self::PREFERENCES_NAME, __CLASS__, '1.0.0' );
   }
 
 
